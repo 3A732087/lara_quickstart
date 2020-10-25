@@ -1,5 +1,5 @@
 <?php
-use App\Task;
+use App\Models\Task;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 
@@ -22,7 +22,7 @@ Route::get('/', function () {
 
 //顯示所有任務的清單
 Route::get('/',function (){
-    $tasks = \App\Models\Task::orderBy('created_at', 'asc')->get();
+    $tasks = Task::orderBy('created_at', 'asc')->get();
     return view('tasks',['tasks'=>$tasks]);
 });
 
@@ -46,5 +46,6 @@ Route::post('/task',function (Request $request){
 
 //刪除任務
 Route::delete('/task/{task}',function (Task $task){
-    //
+    $task->delete();
+    return redirect('/');
 });
