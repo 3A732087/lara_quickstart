@@ -27,7 +27,10 @@ Route::get('/',function (){
 
 //增加新的任務
 Route::post('/task',function (Request $request){
-    //
+    $task = new Task;
+    $task->name = $request->name;
+    $task->save();
+    return redirect('/');
 });
 
 //刪除任務
