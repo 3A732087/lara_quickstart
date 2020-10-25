@@ -22,13 +22,14 @@ Route::get('/', function () {
 
 //顯示所有任務的清單
 Route::get('/',function (){
-    return view('tasks');
+    $tasks = \App\Models\Task::orderBy('created_at', 'asc')->get();
+    return view('tasks',['tasks'=>$tasks]);
 });
 
 //增加新的任務
 Route::post('/task',function (Request $request){
-    $validator = Validator::make($request->all().[
-        'name'=>'required|max:255',
+    $validator = Validator::make($request->all(),[
+        'name' => 'required|max:255',
         ]);
 
     if($validator->fails()){
